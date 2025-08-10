@@ -1,0 +1,29 @@
+.main-nav {
+    list-style-type: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0;
+}
+
+.main-nav ul {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.main-nav ul li {
+    display: inline;
+    vertical-align: middle;
+    padding-left: 70px;
+}
+
+.main-nav ul li:first-child {
+    padding-left: 0px;
+}
+
+.main-nav li a {
+    text-decoration: none;
+    display: inline;
+    color: black;
+    font-size: small;
+    font-weight: bold;
+}
