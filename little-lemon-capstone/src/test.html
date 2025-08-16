@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Layout Demo</title>
+
+  <style>
+    /* =============================
+       Base + Reset
+    ==============================*/
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    img, svg { display: block; max-width: 100%; height: auto; }
+    h1, h2, h3, h4, p { margin: 0; }
+    a { color: inherit; text-decoration: none; }
+
+    /* =============================
+       Theme Tokens
+    ==============================*/
+    :root{
+      --container: 1200px;
+      --gutter: 24px;
+
+      --bg: #ffffff;
+      --ink: #111827;
+      --muted: #6b7280;
+      --panel: #f7f7f8;
+
+      --brand: #495e57;
+      --accent: #f4ce14;
+      --accent-ink: #1c1917;
+
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(2,6,23,.08);
+    }
+
+    /* =============================
+       Layout Helpers
+    ==============================*/
+    .container{
+      width: min(100% - 2rem, var(--container));
+      margin-inline: auto;
+    }
+    .grid-12{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gutter);
+    }
+
+    /* =============================
+       Navigation
+    ==============================*/
+    .site-header{
+      background: var(--brand);
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .site-header .bar{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+    .logo{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .3px;
+    }
+    .nav{
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .nav a{
+      padding: 8px 10px;
+      border-radius: 10px;
+    }
+    .nav a:hover{ background: rgba(255,255,255,.12); }
+
+    /* =============================
+       Banner / Hero
+    ==============================*/
+    .hero{
+      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.25)), url('https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+      color: #fff;
+      padding: 56px 0 72px;
+    }
+    .hero .grid-12{ align-items: center; }
+    .hero-copy{ grid-column: 1 / span 7; }
+    .hero h1{ font-size: clamp(28px, 4vw, 48px); font-weight: 900; color: var(--accent); line-height: 1.1; }
+    .hero p{ margin-top: 10px; max-width: 60ch; opacity: .95; }
+    .hero-cta{ margin-top: 18px; display: flex; gap: 12px; }
+    .btn{
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 44px; padding: 0 18px; font-weight: 700;
+      border-radius: 999px; box-shadow: var(--shadow);
+    }
+    .btn-primary{ background: var(--accent); color: var(--accent-ink); }
+    .btn-ghost{ background: rgba(255,255,255,.16); color: #fff; }
+
+    /* =============================
+       Main Section (cards/articles)
+    ==============================*/
+    .section{ padding: 56px 0; }
+    .section h2{ font-size: clamp(22px, 2.5vw, 32px); font-weight: 900; margin-bottom: 8px; }
+    .section .lede{ color: var(--muted); margin-bottom: 22px; }
+
+    .card-grid{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gutter);
+    }
+    .card{
+      grid-column: span 4;
+      background: var(--panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-media{ aspect-ratio: 16/10; background: #e5e7eb; }
+    .card-body{ padding: 16px; display: grid; gap: 8px; }
+    .card-title{ font-weight: 800; }
+    .card-text{ color: var(--muted); }
+
+    /* =============================
+       Testimonials
+    ==============================*/
+    .testimonials .grid-12{ align-items: stretch; }
+    .testimonial{
+      grid-column: span 3;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+    .avatar{
+      width: 44px; height: 44px; border-radius: 50%;
+      background: #d1d5db;
+    }
+    .rating{ display: flex; gap: 4px; font-size: 18px; }
+
+    /* =============================
+       Footer
+    ==============================*/
+    .site-footer{
+      background: #111827;
+      color: #e5e7eb;
+      padding: 48px 0;
+    }
+    .footer-grid{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--gutter);
+    }
+    .footer-col{ grid-column: span 4; display: grid; gap: 8px; }
+    .footer-title{ font-weight: 900; color: #fff; }
+    .footer-link{ color: #cbd5e1; }
+    .footer-link:hover{ color: #fff; }
+
+    /* =============================
+       Responsive
+    ==============================*/
+    @media (max-width: 1000px){
+      .hero-copy{ grid-column: 1 / span 12; }
+    }
+    @media (max-width: 900px){
+      .card{ grid-column: span 6; }
+      .testimonial{ grid-column: span 6; }
+      .footer-col{ grid-column: span 6; }
+    }
+    @media (max-width: 600px){
+      :root{ --gutter: 16px; }
+      .site-header .bar{ flex-wrap: wrap; gap: 10px; }
+      .nav{ flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+      .card{ grid-column: span 12; }
+      .testimonial{ grid-column: span 12; }
+      .footer-col{ grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Skip link for accessibility -->
+  <a href="#main" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to main content</a>
+
+  <!-- =========================
+       Navigation
+  ========================== -->
+  <header class="site-header" role="banner">
+    <div class="container bar">
+      <a href="#" class="logo" aria-label="Home">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" fill="#f4ce14"></circle>
+          <path d="M12 6v12M6 12h12" stroke="#111827" stroke-width="2" stroke-linecap="round"></path>
+        </svg>
+        <span>BrandName</span>
+      </a>
+
+      <nav class="nav" aria-label="Main">
+        <a href="#main">Main</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =========================
+       Banner / Hero
+  ========================== -->
+  <section class="hero" aria-labelledby="banner-title">
+    <div class="container grid-12">
+      <div class="hero-copy">
+        <h1 id="banner-title">Build responsive layouts faster</h1>
+        <p>Create clean, scalable pages with a 12-column grid & modern flex utilities. This starter gives you the bones; you bring the content.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#main">Get Started</a>
+          <a class="btn btn-ghost" href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       Main Section
+  ========================== -->
+  <main id="main" class="section" aria-labelledby="main-title">
+    <div class="container">
+      <h2 id="main-title">Main Section</h2>
+      <p class="lede">Three responsive cards arranged on a 12-column grid.</p>
+
+      <div class="card-grid">
+        <article class="card">
+          <div class="card-media" role="img" aria-label="Placeholder image"></div>
+          <div class="card-body">
+            <h3 class="card-title">Card One</h3>
+            <p class="card-text">Short description about the content in this card.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media" role="img" aria-label="Placeholder image"></div>
+          <div class="card-body">
+            <h3 class="card-title">Card Two</h3>
+            <p class="card-text">Another short description of content or features.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-media" role="img" aria-label="Placeholder image"></div>
+          <div class="card-body">
+            <h3 class="card-title">Card Three</h3>
+            <p class="card-text">Add details here to round out the section.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- =========================
+       Testimonials Section
+  ========================== -->
+  <section id="testimonials" class="section testimonials" aria-labelledby="testimonials-title">
+    <div class="container">
+      <h2 id="testimonials-title">What People Say</h2>
+      <p class="lede">Four compact testimonial cards that collapse responsively.</p>
+
+      <div class="grid-12">
+        <figure class="testimonial">
+          <div class="avatar" aria-hidden="true"></div>
+          <figcaption>
+            <strong>Alex P.</strong><br />
+            <span class="rating">★★★★★</span>
+          </figcaption>
+          <blockquote>“Super clean starter — shipped a page in minutes.”</blockquote>
+        </figure>
+
+        <figure class="testimonial">
+          <div class="avatar" aria-hidden="true"></div>
+          <figcaption>
+            <strong>Rin K.</strong><br />
+            <span class="rating">★★★★☆</span>
+          </figcaption>
+          <blockquote>“Nice defaults and smart responsive choices.”</blockquote>
+        </figure>
+
+        <figure class="testimonial">
+          <div class="avatar" aria-hidden="true"></div>
+          <figcaption>
+            <strong>Sam T.</strong><br />
+            <span class="rating">★★★★★</span>
+          </figcaption>
+          <blockquote>“Exactly what I needed for a quick prototype.”</blockquote>
+        </figure>
+
+        <figure class="testimonial">
+          <div class="avatar" aria-hidden="true"></div>
+          <figcaption>
+            <strong>Jordan L.</strong><br />
+            <span class="rating">★★★★★</span>
+          </figcaption>
+          <blockquote>“Readable CSS and sensible class names.”</blockquote>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================
+       Footer
+  ========================== -->
+  <footer id="contact" class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-title">BrandName</div>
+        <p>Clean, responsive building blocks for modern pages.</p>
+      </div>
+      <nav class="footer-col" aria-label="Footer">
+        <div class="footer-title">Sitemap</div>
+        <a class="footer-link" href="#main">Main</a>
+        <a class="footer-link" href="#testimonials">Testimonials</a>
+        <a class="footer-link" href="#">Privacy</a>
+      </nav>
+      <div class="footer-col">
+        <div class="footer-title">Contact</div>
+        <a class="footer-link" href="mailto:hello@example.com">hello@example.com</a>
+        <a class="footer-link" href="#">Twitter</a>
+        <a class="footer-link" href="#">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
