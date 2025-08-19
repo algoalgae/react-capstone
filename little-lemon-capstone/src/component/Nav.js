@@ -1,3 +1,4 @@
+import  {Link} from 'react-router-dom';
 import logo from "./../assets/images/Logo.svg"
 import './../assets/css/layout.css';
 import './../component/Hamberger.js'
@@ -16,12 +17,12 @@ function Nav() {
 
                 <nav className="nav" aria-label="Main">
                     <ul>
-                        <li><a href="#Home">Home</a></li>
-                        <li><a href="#About">About</a></li>
-                        <li><a href="#Menu">Menu</a></li>
-                        <li><a href="#Reservations">Reservations</a></li>
-                        <li><a href="#Order Online">Order Online</a></li>
-                        <li><a href="#Login">Login</a></li>
+                        <li><a><Link to="/">Home</Link></a></li>
+                        <li><a><Link to="/about">About</Link></a></li>
+                        <li><a><Link to="/main">Menu</Link></a></li>
+                        <li><a><Link to="/reservation">Reservation</Link></a></li>
+                        <li><a><Link to="/main">Order Online</Link></a></li>
+                        <li><a><Link to="/">Login</Link></a></li>
                     </ul>
                 </nav>
             </div>

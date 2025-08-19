@@ -1,21 +1,18 @@
+import  {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './App.css';
 import Nav from './component/Nav.js';
-import Hero from "./component/Hero.js";
-import MainSection from "./component/MainSection.js";
-import Testimonials from "./component/Testimonials.js";
-import About from "./component/About.js";
-import Footer from "./component/Footer.js";
+import Home from "./component/HomePage.js";
+import BookingPage from "./component/booking/BookingPage.js";
 
 function App() {
   return (
-    <>
+    <Router>
       <Nav/>
-      <Hero/>
-      <MainSection/>
-      <Testimonials/>
-      <About/>
-      <Footer/>
-    </>
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/reservation" element={<BookingPage/>}></Route>
+      </Routes>
+    </Router>
   );
 }
 
