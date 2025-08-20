@@ -11,14 +11,16 @@ const availableTimes = [
   ];
 
 
-const initializeTimes = { list: availableTimes};
+export function initializeTimes() {
+  return { list: availableTimes };
+}
 
-const updateTimes = (state, action) => {
+export const updateTimes = (state, action) => {
     return state;
 }
 
 function BookingPage() {
-  const [state, dispatch] = useReducer(updateTimes, initializeTimes);
+  const [state, dispatch] = useReducer(updateTimes, undefined, initializeTimes);
 
   return (
     <BookingForm availableTimes={state.list} dispatchTimes={dispatch}/>

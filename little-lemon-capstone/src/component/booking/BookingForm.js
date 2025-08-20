@@ -81,11 +81,11 @@ const BookingForm = ({availableTimes, dispatchTimes, }) => {
         <label htmlFor="res-time">Choose time</label>
         <select id="res-time" name="time" value={time} onChange={(e) => setTime(e.target.value)}
           onBlur={() => setTouched((t) => ({ ...t, time: true }))}
-          disabled={!date || availableTimes.length === 0}
+          disabled={!date || availableTimes?.length === 0}
           aria-invalid={!!errors.time && touched.time}
           required>
           <option value="">-- Select a time --</option>
-          {availableTimes.map((t) => (
+          {availableTimes?.map((t) => (
             <option key={t} value={t}>{t}</option>
           ))}
         </select>
