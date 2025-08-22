@@ -1,6 +1,7 @@
 import BookingForm from './BookingForm.js';
 import React, { useState, useReducer } from "react";
 import { fetchAPI, submitAPI } from '../../api/api.js';
+import '../../assets/css/layout.css';
 
 const availableTimes = [
       "17:00",
@@ -37,7 +38,12 @@ function BookingPage() {
   const [state, dispatch] = useReducer(updateTimes, undefined, initializeTimes);
 
   return (
-    <BookingForm availableTimes={state.list} dispatchTimes={dispatch} submitForm={submitForm}/>
+    <div className="booking-page">
+      <div className="booking-form-container">
+        <h2 className="booking-title">Reservation Form</h2>
+        <BookingForm availableTimes={state.list} dispatchTimes={dispatch} submitForm={submitForm}/>
+      </div>
+    </div>
   );
 }
 

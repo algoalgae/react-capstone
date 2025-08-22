@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import '../../assets/css/layout.css';
 
 const BookingForm = ({availableTimes, dispatchTimes, submitForm, }) => {
   const navigate = useNavigate();
@@ -127,7 +128,7 @@ const BookingForm = ({availableTimes, dispatchTimes, submitForm, }) => {
           <span style={errorStyle}>{errors.occasion}</span>
         )}
       </div>
-      <input type="submit" value="Make Your reservation" disabled={!formValid} aria-disabled={!formValid}/>
+      <input className="btn btn-primary" type="submit" value="Make Your Reservation" disabled={!formValid} aria-disabled={!formValid}/>
     </form>
     </>
   );
