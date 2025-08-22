@@ -16,5 +16,3 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-<script src="https://raw.githubusercontent.com/courseraap/capstone/main/api.js"></script>
-

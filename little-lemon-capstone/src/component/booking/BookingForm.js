@@ -1,6 +1,8 @@
 import React, { useState, useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 
-const BookingForm = ({availableTimes, dispatchTimes, }) => {
+const BookingForm = ({availableTimes, dispatchTimes, submitForm, }) => {
+  const navigate = useNavigate();
 
    // State variables for form fields
   const [date, setDate] = useState("");
@@ -21,13 +23,20 @@ const BookingForm = ({availableTimes, dispatchTimes, }) => {
     setTouched({ date: true, time: true, guests: true, occasion: true });
     if (!formValid) return;
 
-    // RESET on Submission
-    setDate("");
-    setTime("");
-    setGuests("");
-    setOccasion("");
-    setTouched({ date: false, time: false, guests: false, occasion: false });
-    alert("Reservation submitted!");
+    const formData = { date, time, guests, occasion };
+
+    if(submitForm(formData)){
+      // RESET on Submission
+      setDate("");
+      setTime("");
+      setGuests("");
+      setOccasion("");
+      setTouched({ date: false, time: false, guests: false, occasion: false });
+
+      navigate("/confirmation");
+    }else{
+      alert("Oops!! Something went wrong. Please try again.");
+    }
   };
 
   const handleDateChange = (e) => {
@@ -69,7 +78,7 @@ const BookingForm = ({availableTimes, dispatchTimes, }) => {
       noValidate
     >
       <div style={labelGap}>
-        <label htmlFor="res-date">Choose date</label>
+        <label htmlFor="res-date" aria-label="On Click">Choose date</label>
         <input type="date" id="res-date" name="date" value={date} onChange={handleDateChange}
         onBlur={() => setTouched((t) => ({ ...t, date: true }))}
           aria-invalid={!!errors.date && touched.date}
@@ -78,7 +87,7 @@ const BookingForm = ({availableTimes, dispatchTimes, }) => {
       </div>
 
        <div style={labelGap}>
-        <label htmlFor="res-time">Choose time</label>
+        <label htmlFor="res-time" aria-label="On Click">Choose time</label>
         <select id="res-time" name="time" value={time} onChange={(e) => setTime(e.target.value)}
           onBlur={() => setTouched((t) => ({ ...t, time: true }))}
           disabled={!date || availableTimes?.length === 0}
@@ -93,7 +102,7 @@ const BookingForm = ({availableTimes, dispatchTimes, }) => {
       </div>
 
       <div style={labelGap}>
-        <label htmlFor="guests">Number of guests</label>
+        <label htmlFor="guests" aria-label="On Click">Number of guests</label>
         <input type="number" placeholder="1" min="1" max="10" id="guests" name="guests" value={guests} onChange={(e) => setGuests(e.target.value)}
         onBlur={() => setTouched((t) => ({ ...t, guests: true }))}
           aria-invalid={!!errors.guests && touched.guests}
@@ -104,7 +113,7 @@ const BookingForm = ({availableTimes, dispatchTimes, }) => {
       </div>
 
       <div style={labelGap}>
-        <label htmlFor="occasion">Occasion</label>
+        <label htmlFor="occasion" aria-label="On Click">Occasion</label>
         <select id="occasion" name="occasion" value={occasion} onChange={(e) => setOccasion(e.target
           .value
         )}

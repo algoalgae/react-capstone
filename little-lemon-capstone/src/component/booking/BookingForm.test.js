@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import BookingForm from './BookingForm';
+import { useNavigate } from "@testing-library/react-router-dom";
 
 test('Renders the BookingForm heading', () => {
     render(<BookingForm />);

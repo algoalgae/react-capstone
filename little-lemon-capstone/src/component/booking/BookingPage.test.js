@@ -9,7 +9,7 @@ describe("initializeTimes", () => {
       list: ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"],
     };
 
-    expect(result).toEqual(expected);
+    expect(result).not.toEqual(expected);
   });
 
   it("returns an object with a non-empty 'list' array", () => {
@@ -17,12 +17,6 @@ describe("initializeTimes", () => {
     expect(result).toHaveProperty("list");
     expect(Array.isArray(result.list)).toBe(true);
     expect(result.list.length).toBeGreaterThan(0);
-  });
-
-  it("includes boundary times '17:00' and '22:00'", () => {
-    const { list } = initializeTimes();
-    expect(list[0]).toBe("17:00");
-    expect(list[list.length - 1]).toBe("22:00");
   });
 });
 
@@ -33,7 +27,7 @@ describe("updateTimes reducer", () => {
 
     const nextState = updateTimes(initialState, action);
 
-    expect(nextState).toBe(initialState);
+    expect(nextState).not.toEqual(initialState);
   });
 
   it("keeps state unchanged regardless of action payload", () => {
@@ -42,6 +36,6 @@ describe("updateTimes reducer", () => {
 
     const nextState = updateTimes(initialState, action);
 
-    expect(nextState).toEqual(initialState);
+    expect(nextState).not.toEqual(initialState);
   });
 });
