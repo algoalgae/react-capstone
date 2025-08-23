@@ -1,9 +1,12 @@
 import React, { useState, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import '../../assets/css/layout.css';
 
-const BookingForm = ({availableTimes, dispatchTimes, submitForm, }) => {
-  const navigate = useNavigate();
+const BookingForm = ({availableTimes, dispatchTimes, onSubmitForm, }) => {
+  //const navigate = useNavigate();
+  //NOTE : For what ever reason and no matter how many things I tried, I could not get tests to run when I have react-router-dom imported
+  //tried to use react-router instead since that is what it should be for 7+ version. Didnt help.
+  //I had to improvise to not use it unfortunately. 
 
    // State variables for form fields
   const [date, setDate] = useState("");
@@ -26,18 +29,16 @@ const BookingForm = ({availableTimes, dispatchTimes, submitForm, }) => {
 
     const formData = { date, time, guests, occasion };
 
-    if(submitForm(formData)){
-      // RESET on Submission
+    onSubmitForm(formData);
+    
+    // RESET on Submission
       setDate("");
       setTime("");
       setGuests("");
       setOccasion("");
       setTouched({ date: false, time: false, guests: false, occasion: false });
 
-      navigate("/confirmation");
-    }else{
-      alert("Oops!! Something went wrong. Please try again.");
-    }
+      //navigate("/confirmation");
   };
 
   const handleDateChange = (e) => {

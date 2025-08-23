@@ -37,13 +37,36 @@ export const submitForm = (formData) => {
 function BookingPage() {
   const [state, dispatch] = useReducer(updateTimes, undefined, initializeTimes);
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmitForm = (formData) => {
+    if (submitAPI(formData)) {
+      setIsSubmitted(true);
+    }
+  };
+
   return (
-    <div className="booking-page">
+    <>
+        {!isSubmitted ? (
+          <div className="booking-page">
       <div className="booking-form-container">
-        <h2 className="booking-title">Reservation Form</h2>
-        <BookingForm availableTimes={state.list} dispatchTimes={dispatch} submitForm={submitForm}/>
+            <h2 className="booking-title">Make Your Reservation</h2>
+            <BookingForm
+              availableTimes={state.list}
+              dispatchTimes={dispatch}
+              onSubmitForm={handleSubmitForm}
+            />
+          
       </div>
     </div>
+        ) : (
+          <div className="confirm-page">
+      <div className="confirm-container">
+      <h1 className="confirm-title">Booking Confirmed</h1>
+      <p className="confirm-message">Your reservation has been successfully submitted.</p>
+    </div></div>
+        )}
+        </>
   );
 }
 
